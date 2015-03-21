@@ -1,9 +1,9 @@
 <?php
 
-abstract class Mera_Entity {
+abstract class MeraEntity {
 	public static $TABLE_NAME = '';
 	// We define the items forming our form
-	public $form_items = array();
+	private static $form_items = array();
 	
 	public $attributes = array();
 	
@@ -58,6 +58,33 @@ abstract class Mera_Entity {
 			return $all[0]; // Return first record if found
 		return null;	
 	}
+    
+    public static function getByField($key,$value){
+        global $db;
+		$all = array();
+		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.$key.' ='.$value.';';
+		$results = $db->query($sql);
+		while ($result = mysql_fetch_array($results)) {
+			$all[] = new static($result);
+		}
+        return $all; // Return first record if found
+    }
+    
+    public static function getInstallSQL(){
+        if(!isset(static::$TEMPLATE)){
+            return null;
+        }
+        $sql = '
+        CREATE TABLE '.static::$TABLE_NAME . ' (
+        ';
+        foreach(static::getTemplate() as $item){
+            $sql .= $item['name'] . ' ' . $item['mysql_type'] . ',';
+        }
+        $sql = rtrim($sql,',');
+        $sql .= ');';
+        
+        return $sql;
+    }
 		
 
 
