@@ -31,5 +31,3 @@ $db = new MysQL(); // Initialising the MySQL class in object $db
 require ROOTDIR.'inc/functions.php';
 session_start();
 require ROOTDIR.'inc/class_mera_entities.php';
-
-?> 

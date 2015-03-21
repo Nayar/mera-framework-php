@@ -98,4 +98,3 @@ class MySQL {
 		return $all;
 	}
 }
-?> 
