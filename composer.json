@@ -1,0 +1,17 @@
+{
+    "name": "nayar/meraframeworkphp",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Nayar Joolfoo",
+            "email": "nayar@joolfoo.com",
+            "homepage": "http://nayarweb.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": { "MeraFrameWork": "." }
+    }
+}
