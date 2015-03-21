@@ -8,8 +8,5 @@
             "email": "nayar@joolfoo.com",
             "homepage": "http://nayarweb.com/"
         }
-    ],
-    "require": {
-        "php": ">=5.3.0"
-    }
+    ]
 }
