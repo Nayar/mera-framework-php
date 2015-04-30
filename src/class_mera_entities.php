@@ -1,5 +1,5 @@
 <?php
-
+DEFINE('ROOTDIR','/var/www/html/work/vmsplateforme/');
 abstract class MeraEntity {
 	public static $TABLE_NAME = '';
 	// We define the items forming our form
@@ -34,7 +34,7 @@ abstract class MeraEntity {
 		global $db;
 		$sql = 'DELETE FROM '.static::$TABLE_NAME.' WHERE id = '.$current.';';
 		$db->query($sql);
-		echo $sql;
+		//echo $sql;
 	}
 	
 	public static function update($id , $arr){
