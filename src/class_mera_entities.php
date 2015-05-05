@@ -8,15 +8,16 @@ abstract class MeraEntity {
 	public $attributes = array();
 	
 	
-	public function __construct($attributes){
-		$this->attributes = $attributes;
+	public function __construct($attributes = null){
+		if($attributes)
+			$this->attributes = $attributes;
 	}
 	
-	public static function getAll(){
+	public static function getAll($fields = '*', $extra = ''){
 		global $db;
 		$all = array();
 		
-		$sql = 'SELECT * FROM '. static::$TABLE_NAME;
+		$sql = 'SELECT '.$fields.' FROM '. static::$TABLE_NAME. ' ' . $extra;
 		$results = $db->query($sql);
 		while ($result = mysql_fetch_array($results)) {
 			$all[] = new static($result);
