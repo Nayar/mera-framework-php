@@ -50,6 +50,7 @@ class MySQL {
 // 	}
 	
 	function query($string) {
+		//echo $string;
 		$query = mysql_query($string);
 		if(!$query) {
 			echo "<br />";
