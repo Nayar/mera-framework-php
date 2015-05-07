@@ -12,7 +12,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-DEFINE('ROOTDIR','/var/www/html/work/vmsplateforme/');
+define('ROOTDIR',dirname(dirname(dirname(__FILE__)))."/");
 
 abstract class MeraEntity {
 	public static $TABLE_NAME = '';
