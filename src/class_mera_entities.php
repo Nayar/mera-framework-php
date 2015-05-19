@@ -12,7 +12,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('ROOTDIR',dirname(dirname(dirname(__FILE__)))."/");
+if(!defined ('ROOTDIR'))
+	define('ROOTDIR',dirname(dirname(dirname(__FILE__)))."/");
 
 abstract class MeraEntity {
 	public static $TABLE_NAME = '';
@@ -30,13 +31,24 @@ abstract class MeraEntity {
 	public static function getAll($fields = '*', $extra = ''){
 		global $db;
 		$all = array();
-		
 		$sql = 'SELECT '.$fields.' FROM '. static::$TABLE_NAME. ' ' . $extra;
 		$results = $db->query($sql);
 		while ($result = mysql_fetch_array($results)) {
 			$all[] = new static($result);
 		}
 		return $all;
+	}
+	
+	public static function totalCount($fields = '*', $extra = ''){
+		global $db;
+		$all = array();
+		
+		$sql = 'SELECT count('.$fields.') as c FROM '. static::$TABLE_NAME. ' ' . $extra;
+		$results = $db->query($sql);
+		while ($result = mysql_fetch_array($results)) {
+			return $result['c'];
+		}
+		return 0;
 	}
 	
 	public static function add($entity){
