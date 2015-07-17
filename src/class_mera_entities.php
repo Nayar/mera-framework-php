@@ -97,6 +97,23 @@ abstract class MeraEntity {
         return $all; // Return first record if found
     }
     
+    public static function getByFields($fields){
+        global $db;
+        //print_r($fields);
+        $all = array();
+        $sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE ';
+        foreach($fields as $key => $value){
+            $sql .= $key.' = \''.$value.'\' AND ' ;
+        }
+        $sql = rtrim($sql,'AND ');
+        $sql .= ';';
+        $results = $db->query($sql);
+        while ($result = mysql_fetch_array($results)) {
+                $all[] = new static($result);
+        }
+        return $all;
+    }
+    
     public static function getInstallSQL(){
         if(!isset(static::$TEMPLATE)){
             return null;
