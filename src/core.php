@@ -20,14 +20,14 @@ error_reporting(-1);
 
 // Define some constants which can be used inside any classes/functions without the need to globalise them
 define("ROOTDIR",dirname(dirname(__FILE__))."/");
-define("ROOTURL","http://".$_SERVER['SERVER_NAME']."/".basename(dirname(dirname(__FILE__)))."/");
+//define("ROOTURL","http://".$_SERVER['SERVER_NAME']."/".basename(dirname(dirname(__FILE__)))."/");
 
 //ini_set("log_errors", 1);
 //ini_set("error_log", ROOTDIR."/php-error.log");
 
-require ROOTDIR."inc/class_db.php"; // Include MySQL class file
+require ROOTDIR."src/class_db.php"; // Include MySQL class file
 $db = new MysQL(); // Initialising the MySQL class in object $db
 // require ROOTDIR."inc/class_users.php";
-require ROOTDIR.'inc/functions.php';
+//require ROOTDIR.'src/functions.php';
 session_start();
-require ROOTDIR.'inc/class_mera_entities.php';
+require ROOTDIR.'src/class_mera_entities.php';

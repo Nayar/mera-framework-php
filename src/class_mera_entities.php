@@ -114,6 +114,28 @@ abstract class MeraEntity {
         return $all;
     }
     
+    public static function getByFieldLike($key,$value){
+        global $db;
+		$all = array();
+		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.$key.' LIKE \''.$value.'\';';
+		$results = $db->query($sql);
+		while ($result = mysql_fetch_array($results)) {
+			$all[] = new static($result);
+		}
+        return $all; // Return first record if found
+    }
+    
+    public static function getByREGEX($key,$value){
+	     global $db;
+		$all = array();
+		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE "'.$value.'" REGEXP redirect_url.'.$key.';';
+		$results = $db->query($sql);
+		while ($result = mysql_fetch_array($results)) {
+			$all[] = new static($result);
+		}
+        return $all; // Return first record if found
+    }
+    
     public static function getInstallSQL(){
         if(!isset(static::$TEMPLATE)){
             return null;

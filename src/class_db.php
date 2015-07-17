@@ -14,40 +14,36 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-//require 'local_config.php';
+require 'local_config.php';
 class MySQL {
 	
-// 	// Constructor or initialisator. 
-// 	function __construct() {
-//  		global $dbsettings;
-//  		// Store the connection details in variables
-//  		$servername = $dbsettings['servername'];
-//  		$username = $dbsettings['username'];
-//  		$password = $dbsettings['password'];
-//  		$dbname = $dbsettings['dbname'];
-//  		
-//  		// We now connect to the database
-//  		$con = @mysql_connect($servername,$username,$password);
-//  		
-//  		// if connection failed
-//  		if (!$con){
-//  			// To allow running on Nayar laptop wihtout need to change password everytime
-//  			$con = @mysql_connect($servername,$username,"admin");
-//  			if (!$con) {
-//  				die("Cannot connect to server".mysql_error());
-//  			}
-//  		}
-//  		
-//  		// Select the database
-//  		$db_selected = mysql_select_db($dbname,$con);
-//  		
-//  		// If database not present
-//  		if (!$db_selected) {
-//  			//Create the database
-//  			//mysql_query("CREATE DATABASE {$dbname}",$con);
-//  			//header('Location: '.ROOTURL.'inc/install.php');
-//  		}
-// 	}
+	// Constructor or initialisator. 
+	function __construct() {
+ 		global $dbsettings;
+ 		// Store the connection details in variables
+ 		$servername = $dbsettings['servername'];
+ 		$username = $dbsettings['username'];
+ 		$password = $dbsettings['password'];
+ 		$dbname = $dbsettings['dbname'];
+ 		
+ 		// We now connect to the database
+ 		$con = @mysql_connect($servername,$username,$password);
+ 		
+ 		// if connection failed
+ 		if (!$con){
+ 			die("Cannot connect to server".mysql_error());
+ 		}
+ 		
+ 		// Select the database
+ 		$db_selected = mysql_select_db($dbname,$con);
+ 		
+ 		// If database not present
+ 		if (!$db_selected) {
+ 			//Create the database
+ 			//mysql_query("CREATE DATABASE {$dbname}",$con);
+ 			//header('Location: '.ROOTURL.'inc/install.php');
+ 		}
+	}
 	
 	function query($string) {
 		//echo $string;
