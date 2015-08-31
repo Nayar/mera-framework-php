@@ -29,5 +29,5 @@ require ROOTDIR."src/class_db.php"; // Include MySQL class file
 $db = new MysQL(); // Initialising the MySQL class in object $db
 // require ROOTDIR."inc/class_users.php";
 //require ROOTDIR.'src/functions.php';
-session_start();
+
 require ROOTDIR.'src/class_mera_entities.php';
