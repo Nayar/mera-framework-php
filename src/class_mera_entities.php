@@ -17,6 +17,7 @@ if(!defined ('ROOTDIR'))
 
 abstract class MeraEntity {
 	public static $TABLE_NAME = '';
+	public static $PRIMARY_KEY = 'id';
 	// We define the items forming our form
 	private static $form_items = array();
 	
@@ -33,7 +34,7 @@ abstract class MeraEntity {
 		$all = array();
 		$sql = 'SELECT '.$fields.' FROM '. static::$TABLE_NAME. ' ' . $extra;
 		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
+		while ($result = $results->fetch_assoc()) {
 			$all[] = new static($result);
 		}
 		return $all;
@@ -45,7 +46,7 @@ abstract class MeraEntity {
 		
 		$sql = 'SELECT count('.$fields.') as c FROM '. static::$TABLE_NAME. ' ' . $extra;
 		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
+		while ($result = $results->fetch_assoc()) {
 			return $result['c'];
 		}
 		return 0;
@@ -76,9 +77,9 @@ abstract class MeraEntity {
 	public static function getById($id){
 		global $db;
 		$all = array();
-		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE id ='.$id.';';
+		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.static::$PRIMARY_KEY.' ='.$id.';';
 		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
+		while ($result = $results->fetch_assoc()) {
 			$all[] = new static($result);
 		}
 		if(isset($all[0]))
@@ -89,9 +90,9 @@ abstract class MeraEntity {
     public static function getByField($key,$value){
         global $db;
 		$all = array();
-		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.$key.' ='.$value.';';
+		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.$key.' = \''.$value.'\';';
 		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
+		while ($result = $results->fetch_assoc()) {
 			$all[] = new static($result);
 		}
         return $all; // Return first record if found
@@ -108,31 +109,9 @@ abstract class MeraEntity {
         $sql = rtrim($sql,'AND ');
         $sql .= ';';
         $results = $db->query($sql);
-        while ($result = mysql_fetch_array($results)) {
+        while ($result = $results->fetch_assoc()) {
                 $all[] = new static($result);
         }
-        return $all;
-    }
-    
-    public static function getByFieldLike($key,$value){
-        global $db;
-		$all = array();
-		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE '.$key.' LIKE \''.$value.'\';';
-		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
-			$all[] = new static($result);
-		}
-        return $all; // Return first record if found
-    }
-    
-    public static function getByREGEX($key,$value){
-	     global $db;
-		$all = array();
-		$sql = 'SELECT * FROM '.static::$TABLE_NAME.' WHERE "'.$value.'" REGEXP redirect_url.'.$key.';';
-		$results = $db->query($sql);
-		while ($result = mysql_fetch_array($results)) {
-			$all[] = new static($result);
-		}
         return $all; // Return first record if found
     }
     
